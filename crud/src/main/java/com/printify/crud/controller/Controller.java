@@ -47,8 +47,15 @@ public class Controller {
     @GetMapping("/categories/{id}.json")
     public ResponseEntity<Object> getCategoryById(@PathVariable Integer id) {
         try{
-            logger.info("Client xem category "+id);
-            return new ResponseEntity<>(categoryService.getCategoryById(id),HttpStatus.valueOf(200));
+            if(categoryService.getCategoryById(id).isPresent()){
+                logger.info("Client xem category "+id);
+                return new ResponseEntity<>(categoryService.getCategoryById(id),HttpStatus.valueOf(200));
+            }
+            else{
+                logger.info("Xem that bai");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+            
         }
         catch(DataAccessException e){ //lỗi truy cập 
             logger.error("Loi truy cap");
@@ -75,8 +82,8 @@ public class Controller {
     @PutMapping("/categories/{id}.json")
     public ResponseEntity<Object> updateCategory(@RequestBody CategoryRequestDTO categoryRequestDTO,@PathVariable Integer id) { 
         try{
-            Optional<Category> a = categoryService.getCategoryById(id);
-            if(a.isEmpty()){
+            Optional<Category> category = categoryService.getCategoryById(id);
+            if(category.isEmpty()){
                 logger.error("Client sua that bai");
                 throw new ResourceNotFound("Sửa thất bại (không có bản ghi với id = " + id + ")");
             }
