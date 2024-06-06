@@ -39,7 +39,7 @@ public class Controller {
         }
         catch(DataAccessException e){ //lỗi truy cập 
             logger.error("Loi truy cap");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
@@ -53,9 +53,8 @@ public class Controller {
             }
             else{
                 logger.info("Xem that bai");
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
             }
-            
         }
         catch(DataAccessException e){ //lỗi truy cập 
             logger.error("Loi truy cap");
@@ -96,7 +95,7 @@ public class Controller {
             logger.error("Loi truy cap");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }catch (ResourceNotFound e){ // lỗi không thấy bản ghi 
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }     
     }
 
