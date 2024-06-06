@@ -87,9 +87,11 @@ public class Controller {
                 throw new ResourceNotFound("Sửa thất bại (không có bản ghi với id = " + id + ")");
             }
             else{
-                Category CategoryResponse = categoryService.updateCategory(categoryRequestDTO.getCategoryName(),id);
+                Category categoryResponse = category.get();
+                categoryResponse.setCategoryName(categoryRequestDTO.getCategoryName());
+                categoryResponse = categoryService.updateCategory(categoryResponse);
                 logger.info("Client sua category " + id);
-                return new ResponseEntity<>(CategoryResponse,HttpStatus.valueOf(200));
+                return new ResponseEntity<>(categoryResponse,HttpStatus.valueOf(200));
             }
         }catch(DataAccessException e){ //lỗi truy cập 
             logger.error("Loi truy cap");

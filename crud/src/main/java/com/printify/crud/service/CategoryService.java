@@ -26,10 +26,7 @@ public class CategoryService {
     }
     
 
-    public Category updateCategory(String categoryName,Integer id){
-        Category category = new Category();
-        category.setCategoryName(categoryName);
-        category.setCategoryId(id);
+    public Category updateCategory(Category category){
         categoryRepository.save(category);
         return category;
     }
