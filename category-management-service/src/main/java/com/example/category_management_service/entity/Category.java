@@ -30,7 +30,12 @@ public class Category {
     public Category(Integer categoryId){
         this.categoryId = categoryId;
     }
+    
 
+    public Category(Integer categoryId, String categoryName) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
+    }
     public Category fromCategoryName(String CategoryName){
         Category category = new Category();
         category.setCategoryName(CategoryName);

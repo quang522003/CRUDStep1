@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.Status;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -136,7 +137,7 @@ public class Controller {
     @GetMapping("/health")
     public ResponseEntity<Object> checkHealthService() {
         Health health  = customHealthIndicator.health();
-        if(health.getStatus().equals(org.springframework.boot.actuate.health.Status.UP)){
+        if(health.getStatus().equals(Status.UP)){
             return ResponseEntity.status(HttpStatus.OK).body(Collections.emptyMap());
         }
         else{

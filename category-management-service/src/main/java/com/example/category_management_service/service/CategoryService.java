@@ -13,6 +13,11 @@ import com.example.category_management_service.repository.CategoryRepository;
 public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
+    
+
+    public CategoryService(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
 
     public Category addCategory(String categoryName){
         Category category = new Category();
